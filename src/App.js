@@ -1,9 +1,29 @@
-import React from 'react'
+import React, {useState} from 'react'
+import { SetupScreen } from 'SetupScreen'
+import { GameBoard } from 'GameBoard';
 
 export const App = () => {
+
+  const[choices,setChoices] = useState([]);
+  const[gameStarted, setGameStarted] = useState(false);
+
+  const handleChanges = (choicesFromSetup) => {
+    setChoices(choicesFromSetup)
+  }
+
+  const handleStart = () => {
+      setGameStarted(true)
+  }
+
   return (
-    <div>
-      Find me in src/app.js!
-    </div>
+   <section className="app-container">
+  {!gameStarted &&  
+    <SetupScreen onSubmit={handleChanges} onGameStart={handleStart}/>
+  } 
+  
+  {gameStarted &&
+    <GameBoard choices={choices}/>
+  }
+  </section>
   )
 }
