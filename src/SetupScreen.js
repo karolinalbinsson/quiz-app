@@ -44,6 +44,7 @@ export const SetupScreen = (props) => {
     <section className="setup">
       <h1>QUIZ TIME!</h1> 
       <h2>Before we begin, let's set up some options</h2> 
+      <section className="select-container">
       <label>
       <select
        
@@ -94,8 +95,9 @@ export const SetupScreen = (props) => {
       </select>
       </label>
 {inputIsValid}
-      <button type="button" onClick={validateInput}>Start the quiz</button>
+      <button type="button" className="start-button" onClick={validateInput}>Start the quiz</button>
       {!inputIsValid && isValidated && <div>Uh oh, please check that you've made all the selectons.</div>}
-    </section>
+    
+      </section></section>
   )
 }

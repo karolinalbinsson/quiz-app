@@ -47,7 +47,7 @@ export const Question = ({questionText,inCorrectAnswers,correctAnswer,nextQuesti
   return (
   <div className="question-card"> 
    
-      <h1 className={answered ? "question-unanswered" : "question-answered"}>{questionText}</h1>
+      <h1 className={!answered ? "question-unanswered" : "question-answered"}>{questionText}</h1>
       {!answered && <div className="question">
       {allAnswers.map((text,index) => (
         <button
