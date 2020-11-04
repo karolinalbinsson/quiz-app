@@ -77,7 +77,7 @@ export const SetupScreen = (props) => {
 
     <label>Difficulty
       <select
-       value={difficulty}
+      // value={difficulty}
        onChange={(event) => handleDifficulty({"TYPE" : "Difficulty", "value" : event.target.value })}
       >
        <option value="easy">

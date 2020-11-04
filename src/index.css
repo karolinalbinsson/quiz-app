@@ -15,3 +15,7 @@ code {
 .correctAnswerButton {
 	background-color: green;
 }
+
+.question-card {
+	border: 1px solid black;
+}

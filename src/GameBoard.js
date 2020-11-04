@@ -1,5 +1,6 @@
 import { Question } from 'Question';
 import React, { useState, useEffect } from 'react';
+import { render } from 'react-dom';
 
 
 export const GameBoard = ({choices}) => {
@@ -14,9 +15,10 @@ const[points, setPoints] = useState(0);
 console.log(difficulty,questionType,category);
 
 useEffect(() => {
-  fetch(`https://opentdb.com/api.php?amount=10&category=${category}&difficulty=${difficulty}&type=${questionType}`)
+  fetch(`https://opentdb.com/api.php?amount=10&category=${category}&difficulty=${difficulty}&type=${questionType}&encode=url3986`)
   .then((res) => res.json())
   .then((json) => {
+    console.log(typeof json.results);
     console.log(json.results);
     setQuestions(json.results);
    })
@@ -28,22 +30,25 @@ const handleAnsweredQuestion = (questionResult) => {
   questionResult ? setPoints(points+1) : setPoints(points);
 }
 
+const renderQuestions = questions.map((question,index) => {
+  if(index === questionsAnwsered){
+    return(
+      <Question key={index}
+      questionText={decodeURIComponent(question.question)}
+      inCorrectAnswers={question.incorrect_answers}
+      correctAnswer={decodeURIComponent(question.correct_answer)}
+      nextQuestionHandler={handleAnsweredQuestion} />
+    )
+  }
+})
+
   return (
       <div>This is the game board and here are the QUESTIONS!
-        <div> Your points: {points} </div> 
-        <div> Questions answered {questionsAnwsered} </div> 
+          {renderQuestions}
+          <div> Your points: {points} </div> 
+          <div> Questions answered {questionsAnwsered} </div> 
 
-        {questions.map((question,index) => (
-          <Question key={index}
-              questionText={question.question}
-              inCorrectAnswers={question.incorrect_answers}
-              correctAnswer={question.correct_answer}
-              onFinalAnswer={handleAnsweredQuestion}
-          />
-        ))
-          
-
-        }
+      
       </div>)
      
   

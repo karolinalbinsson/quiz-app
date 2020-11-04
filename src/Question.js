@@ -1,37 +1,31 @@
 import React, { useEffect, useState } from 'react'
 
-export const Question = ({questionText,inCorrectAnswers,correctAnswer, onFinalAnswer}) => {
+export const Question = ({questionText,inCorrectAnswers,correctAnswer, nextQuestionHandler}) => {
 
   const [correctlyAnswered, setCorrectlyAnswered] = useState(false);
-  const [highlightCorrectAnswer, setHighlightCorrectAnswer] = useState(false);
   const [answered, setAnswered] = useState(false);
   const [userAnswer, setUserAnswer] = useState('');
   const [allAnswers, setAllAnswers] = useState(shuffleArray([...inCorrectAnswers,correctAnswer]));
-  const[loading, setLoading]= useState(true);
-
 
 
   const onAnswer = (inAnswer) => {
-   let isCorrect = false;
-    console.log("In Question component, Question is answered", inAnswer);
-    setAnswered(true);
-   if(inAnswer === correctAnswer)
-   {
-     console.log("The answer is equal to the correct answer", correctAnswer, inAnswer);
-     isCorrect = true;
-   }
-   else {
-    console.log("The answer is NOT equal to the correct answer", correctAnswer, inAnswer);
-     isCorrect=false;}
-    setCorrectlyAnswered(isCorrect);
-    toggleHighlight();
-    onFinalAnswer(isCorrect);
     setUserAnswer(inAnswer);
-  }
+    let isCorrect = false;
+      console.log("In Question component, Question is answered", inAnswer);
+      setAnswered(true);
+    if(inAnswer === correctAnswer)
+    {
+      console.log("The answer is equal to the correct answer", correctAnswer, inAnswer);
+      isCorrect = true;
+    }
 
-
-  const toggleHighlight = () => {
-      setHighlightCorrectAnswer(true);
+    else {
+      console.log("The answer is NOT equal to the correct answer", correctAnswer, inAnswer);
+      isCorrect=false;
+      }
+      setCorrectlyAnswered(isCorrect);
+      //nextQuestionHandler(isCorrect);
+      setUserAnswer(inAnswer);
   }
 
   function shuffleArray(array) {
@@ -45,33 +39,40 @@ export const Question = ({questionText,inCorrectAnswers,correctAnswer, onFinalAn
     }
     return array;
   }
+
+  const goToNextQuestion = () => {
+      nextQuestionHandler(correctlyAnswered);
+  }
   
   return (
-
-    <div className="question-card"> 
-   
+  <div className="question-card"> 
+    {!answered && <div className="question">
       <h1>{questionText}</h1>
       {allAnswers.map((text,index) => (
-        <button 
+        <button
+          id={index} 
+          value={decodeURIComponent(text)}
           key={index} 
           type="button"
-          onClick={() => onAnswer(text)}
-        >{text}
+          onClick={() => (onAnswer(decodeURIComponent(text)))}
+        >{decodeURIComponent(text)}
         </button>
-
       ))
-      }
-      {
-        /*<button className={highlightCorrectAnswer === false ? "questionButton" : "correctAnswerButton"}
-        key="correct" 
-        type="button"
-        onClick={() => onAnswer(true,correctAnswer)}
-      >{correctAnswer}</button>
-        */ 
-      }
-      {answered && !correctlyAnswered && <p>Your answer: {userAnswer}</p>}
-      {answered && correctlyAnswered && <p>Yes, correct!</p>}
-   </div>
+     }</div>}
+
+  {answered && 
+     <div className="results">
+       {correctlyAnswered && <div>Congrats, {userAnswer} is correct!</div>}
+       {!correctlyAnswered && 
+       <div>
+         Sorry, {userAnswer} is wrong. The correct answer is {correctAnswer} 
+         </div>}
+      <button type="button" onClick={goToNextQuestion}>
+        Next question
+      </button>
+      </div>
+  }
+  </div>
     
   )
 }
