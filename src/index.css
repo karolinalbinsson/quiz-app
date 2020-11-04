@@ -21,9 +21,17 @@ code {
 .app-container {
 	width: 90vw;
 	border: 1px solid black;
+	height: 99vh;
+	display: flex;
+	flex-direction: column;
 }
 * {
 	box-sizing: border-box;
+}
+
+.questions-wrapper {
+	display: flex;
+	flex-direction: column;
 }
 .select-container {
 	border: 1px solid black;

@@ -47,13 +47,11 @@ const renderQuestions = questions.map((question,index) => {
 })
 
   return (
-      <div>This is the game board and here are the QUESTIONS!
-          {renderQuestions}
+      <div className="questions-wrapper">This is the game board and here are the QUESTIONS!
           {currentWindow}
-          <div> Your points: {points} </div> 
-          <div> Questions answered {questionsAnwsered} </div> 
-
-      
+         <div><div> Your points: {points} </div> 
+          <div> Questions answered {questionsAnwsered} </div> </div>
+          {renderQuestions}
       </div>)
      
   
