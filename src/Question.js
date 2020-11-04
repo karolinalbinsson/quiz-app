@@ -1,26 +1,26 @@
 import React, { useEffect, useState } from 'react'
 
-export const Question = ({questionText,inCorrectAnswers,correctAnswer, nextQuestionHandler}) => {
+export const Question = ({questionText,inCorrectAnswers,correctAnswer,nextQuestionHandler}) => {
 
   const [correctlyAnswered, setCorrectlyAnswered] = useState(false);
   const [answered, setAnswered] = useState(false);
   const [userAnswer, setUserAnswer] = useState('');
   const [allAnswers, setAllAnswers] = useState(shuffleArray([...inCorrectAnswers,correctAnswer]));
-
+  const rightAnswer = decodeURIComponent(correctAnswer);
 
   const onAnswer = (inAnswer) => {
     setUserAnswer(inAnswer);
     let isCorrect = false;
       console.log("In Question component, Question is answered", inAnswer);
       setAnswered(true);
-    if(inAnswer === correctAnswer)
+    if(inAnswer === rightAnswer)
     {
-      console.log("The answer is equal to the correct answer", correctAnswer, inAnswer);
+      console.log("The answer is equal to the correct answer", rightAnswer, inAnswer);
       isCorrect = true;
     }
 
     else {
-      console.log("The answer is NOT equal to the correct answer", correctAnswer, inAnswer);
+      console.log("The answer is NOT equal to the correct answer", rightAnswer, inAnswer);
       isCorrect=false;
       }
       setCorrectlyAnswered(isCorrect);
@@ -46,8 +46,9 @@ export const Question = ({questionText,inCorrectAnswers,correctAnswer, nextQuest
   
   return (
   <div className="question-card"> 
-    {!answered && <div className="question">
-      <h1>{questionText}</h1>
+   
+      <h1 className={answered ? "question-unanswered" : "question-answered"}>{questionText}</h1>
+      {!answered && <div className="question">
       {allAnswers.map((text,index) => (
         <button
           id={index} 
@@ -65,7 +66,7 @@ export const Question = ({questionText,inCorrectAnswers,correctAnswer, nextQuest
        {correctlyAnswered && <div>Congrats, {userAnswer} is correct!</div>}
        {!correctlyAnswered && 
        <div>
-         Sorry, {userAnswer} is wrong. The correct answer is {correctAnswer} 
+         Sorry, {userAnswer} is wrong. The correct answer is {rightAnswer} 
          </div>}
       <button type="button" onClick={goToNextQuestion}>
         Next question
