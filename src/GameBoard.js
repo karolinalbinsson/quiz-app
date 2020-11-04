@@ -11,6 +11,7 @@ const category = choices[choices.findIndex(x => x.TYPE ==="Category")].value;
 const[questions, setQuestions] = useState([]);
 const[questionsAnwsered, setQuestionsAnswered] = useState(0);
 const[points, setPoints] = useState(0);
+const[currentWindow, setCurrentWindow] = useState(0);
 
 console.log(difficulty,questionType,category);
 
@@ -27,24 +28,28 @@ useEffect(() => {
 const handleAnsweredQuestion = (questionResult) => {
   console.log("Question is answered");
   setQuestionsAnswered(questionsAnwsered+1);
+  setCurrentWindow(currentWindow+1);
   questionResult ? setPoints(points+1) : setPoints(points);
 }
 
 const renderQuestions = questions.map((question,index) => {
+  console.log(index);
   if(index === questionsAnwsered){
     return(
+     
       <Question key={index}
       questionText={decodeURIComponent(question.question)}
       inCorrectAnswers={question.incorrect_answers}
       correctAnswer={question.correct_answer}
       nextQuestionHandler={handleAnsweredQuestion} />
     )
-  }
+  } 
 })
 
   return (
       <div>This is the game board and here are the QUESTIONS!
           {renderQuestions}
+          {currentWindow}
           <div> Your points: {points} </div> 
           <div> Questions answered {questionsAnwsered} </div> 
 

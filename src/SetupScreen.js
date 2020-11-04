@@ -42,8 +42,9 @@ export const SetupScreen = (props) => {
 
   return( 
     <section className="setup">
-      <h1>Welcome to the quiz app, please do some settings before we start!</h1> 
-      <label>Category
+      <h1>QUIZ TIME!</h1> 
+      <h2>Before we begin, let's set up some options</h2> 
+      <label>
       <select
        
         onChange={(event) => handleCategory({"TYPE" : "Category", "value": event.target.value})}
@@ -60,7 +61,7 @@ export const SetupScreen = (props) => {
       </select>
       </label>
 
-      <label>Question type
+      <label>
       <select
      
       onChange={(event) => handleQuestionType({"TYPE" : "QuestionType", "value": event.target.value })}
@@ -75,11 +76,12 @@ export const SetupScreen = (props) => {
       </select>
       </label>
 
-    <label>Difficulty
+    <label>
       <select
       // value={difficulty}
        onChange={(event) => handleDifficulty({"TYPE" : "Difficulty", "value" : event.target.value })}
       >
+        <option value="">Select difficulty</option>
        <option value="easy">
          Easy
        </option>
