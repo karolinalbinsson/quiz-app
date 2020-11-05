@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 
 export const Question = ({questionText,inCorrectAnswers,correctAnswer,nextQuestionHandler}) => {
 
   const [correctlyAnswered, setCorrectlyAnswered] = useState(false);
   const [answered, setAnswered] = useState(false);
   const [userAnswer, setUserAnswer] = useState('');
-  const [allAnswers, setAllAnswers] = useState(shuffleArray([...inCorrectAnswers,correctAnswer]));
+  const [allAnswers] = useState(shuffleArray([...inCorrectAnswers,correctAnswer]));
   const rightAnswer = decodeURIComponent(correctAnswer);
 
   const onAnswer = (inAnswer) => {
@@ -20,6 +20,7 @@ export const Question = ({questionText,inCorrectAnswers,correctAnswer,nextQuesti
       }
     setCorrectlyAnswered(isCorrect);
     setUserAnswer(inAnswer);
+    //console.log("User answer:",userAnswer);
   }
 
   function shuffleArray(array) {
@@ -51,8 +52,12 @@ export const Question = ({questionText,inCorrectAnswers,correctAnswer,nextQuesti
           key={index} 
           type="button"
           onClick={() => (onAnswer(decodeURIComponent(text)))}
-          className={decodeURIComponent(text) === correctAnswer ? (answered ? "button-correct" : "answer-button") : (answered ? "button-wrong" : "answer-button")}
-          disabled={answered}
+          className={
+            ((decodeURIComponent(text) === rightAnswer) && (decodeURIComponent(text) === userAnswer)) ? 
+            (answered ? "button-correct" : "answer-button") 
+            : ((decodeURIComponent(text) === rightAnswer) && (decodeURIComponent(text) !== userAnswer) && answered) ? "should-have-clicked-this-button" 
+            :(answered && (decodeURIComponent(text) === userAnswer) ? "button-wrong" : "answer-button")}
+           
         >{decodeURIComponent(text)}
         </button>
       ))
@@ -65,7 +70,7 @@ export const Question = ({questionText,inCorrectAnswers,correctAnswer,nextQuesti
        <div>
          Sorry, {userAnswer} is wrong. The correct answer is {rightAnswer} 
          </div>}
-      <button type="button" onClick={goToNextQuestion}>
+      <button className="next-question" type="button" onClick={goToNextQuestion}>
         Next question
       </button>
       </div>

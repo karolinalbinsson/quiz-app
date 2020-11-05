@@ -26,7 +26,7 @@ useEffect(() => {
     setQuestions(json.results);
     setPageLoading(false);
    })
-},[])
+},[category,difficulty,questionType])
 
 const handleAnsweredQuestion = (questionResult) => {
   console.log("Question is answered");
@@ -35,6 +35,7 @@ const handleAnsweredQuestion = (questionResult) => {
   questionResult ? setPoints(points+1) : setPoints(points);
 }
 
+// eslint-disable-next-line
 const renderQuestions = questions.map((question,index) => {
   console.log(index);
   if(index === questionsAnwsered){
@@ -48,21 +49,24 @@ const renderQuestions = questions.map((question,index) => {
   } 
 })
 
-
+/*
 const startNewGame = () => {
   window.location.reload();
 }
-
+*/
   return (
-      <div className="container">
-        {pageLoading && <Loader />}
-        {!pageLoading && 
+    <div className="game-container">
+    <div className="loader-container">{pageLoading && <Loader />}
+    </div>
+    
+       {!pageLoading && 
         <div className="questions-wrapper">
-          {currentWindow}
+
          <div>
            
-          <div> Your points: {points} </div> 
-          <div> Questions answered {questionsAnwsered} </div> 
+          <div>Points: {points} </div> 
+          <div>Questions answered: {questionsAnwsered} out of {questions.length}  </div> 
+   
           </div>
           {questionsAnwsered !== questions.length ? renderQuestions : <ResultScreen pointsTotal={points} numQuestions={questionsAnwsered} />}
           
