@@ -9,23 +9,17 @@ export const Question = ({questionText,inCorrectAnswers,correctAnswer,nextQuesti
   const rightAnswer = decodeURIComponent(correctAnswer);
 
   const onAnswer = (inAnswer) => {
-    setUserAnswer(inAnswer);
     let isCorrect = false;
-      console.log("In Question component, Question is answered", inAnswer);
       setAnswered(true);
     if(inAnswer === rightAnswer)
     {
-      console.log("The answer is equal to the correct answer", rightAnswer, inAnswer);
       isCorrect = true;
     }
-
     else {
-      console.log("The answer is NOT equal to the correct answer", rightAnswer, inAnswer);
       isCorrect=false;
       }
-      setCorrectlyAnswered(isCorrect);
-      //nextQuestionHandler(isCorrect);
-      setUserAnswer(inAnswer);
+    setCorrectlyAnswered(isCorrect);
+    setUserAnswer(inAnswer);
   }
 
   function shuffleArray(array) {
@@ -48,7 +42,8 @@ export const Question = ({questionText,inCorrectAnswers,correctAnswer,nextQuesti
   <div className="question-card"> 
    
       <h1 className={!answered ? "question-unanswered" : "question-answered"}>{questionText}</h1>
-      {!answered && <div className="question">
+  {/*!{answered && */ }
+      <div className="question">
       {allAnswers.map((text,index) => (
         <button
           id={index} 
@@ -56,10 +51,12 @@ export const Question = ({questionText,inCorrectAnswers,correctAnswer,nextQuesti
           key={index} 
           type="button"
           onClick={() => (onAnswer(decodeURIComponent(text)))}
+          className={decodeURIComponent(text) === correctAnswer ? (answered ? "button-correct" : "answer-button") : (answered ? "button-wrong" : "answer-button")}
+          disabled={answered}
         >{decodeURIComponent(text)}
         </button>
       ))
-     }</div>}
+     }</div>
 
   {answered && 
      <div className="results">

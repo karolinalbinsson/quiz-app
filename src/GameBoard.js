@@ -1,7 +1,8 @@
-import { Question } from 'Question';
 import React, { useState, useEffect } from 'react';
-import { render } from 'react-dom';
 
+import { ResultScreen } from 'ResultScreen';
+import { Question } from 'Question';
+import { Loader } from 'Loader';
 
 export const GameBoard = ({choices}) => {
 
@@ -11,7 +12,8 @@ const category = choices[choices.findIndex(x => x.TYPE ==="Category")].value;
 const[questions, setQuestions] = useState([]);
 const[questionsAnwsered, setQuestionsAnswered] = useState(0);
 const[points, setPoints] = useState(0);
-const[currentWindow, setCurrentWindow] = useState(0);
+const[currentWindow, setCurrentWindow] = useState(-1);
+const [pageLoading, setPageLoading] = useState(true);
 
 console.log(difficulty,questionType,category);
 
@@ -22,6 +24,7 @@ useEffect(() => {
     console.log(typeof json.results);
     console.log(json.results);
     setQuestions(json.results);
+    setPageLoading(false);
    })
 },[])
 
@@ -36,7 +39,6 @@ const renderQuestions = questions.map((question,index) => {
   console.log(index);
   if(index === questionsAnwsered){
     return(
-     
       <Question key={index}
       questionText={decodeURIComponent(question.question)}
       inCorrectAnswers={question.incorrect_answers}
@@ -46,13 +48,27 @@ const renderQuestions = questions.map((question,index) => {
   } 
 })
 
+
+const startNewGame = () => {
+  window.location.reload();
+}
+
   return (
-      <div className="questions-wrapper">This is the game board and here are the QUESTIONS!
+      <div className="container">
+        {pageLoading && <Loader />}
+        {!pageLoading && 
+        <div className="questions-wrapper">
           {currentWindow}
-         <div><div> Your points: {points} </div> 
-          <div> Questions answered {questionsAnwsered} </div> </div>
-          {renderQuestions}
-      </div>)
+         <div>
+           
+          <div> Your points: {points} </div> 
+          <div> Questions answered {questionsAnwsered} </div> 
+          </div>
+          {questionsAnwsered !== questions.length ? renderQuestions : <ResultScreen pointsTotal={points} numQuestions={questionsAnwsered} />}
+          
+      </div>}
+      </div>
+     )
      
   
 
