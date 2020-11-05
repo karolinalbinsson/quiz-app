@@ -18,7 +18,7 @@ const [pageLoading, setPageLoading] = useState(true);
 console.log(difficulty,questionType,category);
 
 useEffect(() => {
-  fetch(`https://opentdb.com/api.php?amount=5&category=${category}&difficulty=${difficulty}&type=${questionType}&encode=url3986`)
+  fetch(`https://opentdb.com/api.php?amount=20&category=${category}&difficulty=${difficulty}&type=${questionType}&encode=url3986`)
   .then((res) => res.json())
   .then((json) => {
     console.log(typeof json.results);
