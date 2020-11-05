@@ -5,3 +5,4 @@ built in react.
 
 just for fun! :)
 
+https://karolin-trivia-app.netlify.app/
