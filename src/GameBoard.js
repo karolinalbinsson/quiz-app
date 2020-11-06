@@ -22,21 +22,6 @@ const[fallBack, setFallBack] = useState(false);
 
 console.log(difficulty,questionType,category);
 
-useEffect(() => {
-  fetch(`https://opentdb.com/api.php?amount=${amount}&category=${category}&difficulty=${difficulty}&type=${questionType}&encode=url3986`)
-  .then((res) => res.json())
-  .then((json) => {
-    console.log(typeof json.results);
-    console.log("Length of results:",json.results.length);
-    json.results.length < 1 ? 
-    fallBackFetch() 
-    : 
-    setFetchOk(true);
-    setQuestions(json.results);
-    setPageLoading(false);
-   })
-},[category,difficulty,questionType,amount])
-
 const fallBackFetch = () => {
   console.log("Using fallback");
   fetch(`https://opentdb.com/api.php?amount=10&type=${questionType}&encode=url3986`)
@@ -51,6 +36,24 @@ const fallBackFetch = () => {
    })
 }
 
+useEffect(() => {
+  fetch(`https://opentdb.com/api.php?amount=${amount}&category=${category}&difficulty=${difficulty}&type=${questionType}&encode=url3986`)
+  .then((res) => res.json())
+  .then((json) => {
+    console.log(typeof json.results);
+    console.log("Length of results:",json.results.length);
+    json.results.length < 1 ? 
+    fallBackFetch() 
+    : 
+    setFetchOk(true);
+    setQuestions(json.results);
+    setPageLoading(false);
+   })
+    // eslint-disable-next-line 
+},[category,difficulty,questionType,amount])
+
+
+
 const handleAnsweredQuestion = (questionResult) => {
   console.log("Question is answered");
   setQuestionsAnswered(questionsAnwsered+1);
@@ -59,7 +62,6 @@ const handleAnsweredQuestion = (questionResult) => {
 }
 
 // eslint-disable-next-line
-
 const renderQuestions = questions.map((question,index) => {
   console.log(index);
   if(index === questionsAnwsered){
