@@ -93,10 +93,11 @@ select {
 	color: white;
 	border: 1px solid white;
 	font-family: "Mulish", sans-serif;
+	cursor: pointer;
 }
 
 select:focus {
-	outline: none;
+	/* outline: none; */
 }
 option {
 	color: black;
@@ -113,10 +114,11 @@ button,
 	font-size: 16px;
 	font-weight: 800;
 	font-family: "Mulish", sans-serif;
+	cursor: pointer;
 }
 
 button:focus {
-	outline: none;
+	/* outline: white; */
 }
 
 button:hover {

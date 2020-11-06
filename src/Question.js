@@ -47,6 +47,7 @@ export const Question = ({questionText,inCorrectAnswers,correctAnswer,nextQuesti
       <div className="question">
       {allAnswers.map((text,index) => (
         <button
+          tabIndex="0"
           id={index} 
           value={decodeURIComponent(text)}
           key={index} 
@@ -65,11 +66,11 @@ export const Question = ({questionText,inCorrectAnswers,correctAnswer,nextQuesti
 
   {answered && 
      <div className="results">
-       {correctlyAnswered && <div>Congrats, {userAnswer} is correct!</div>}
-       {!correctlyAnswered && 
+       {/*correctlyAnswered && <div>Congrats, {userAnswer} is correct!</div>*/}
+       {/*!correctlyAnswered && 
        <div>
          Sorry, {userAnswer} is wrong. The correct answer is {rightAnswer} 
-         </div>}
+       </div>*/}
       <button className="next-question" type="button" onClick={goToNextQuestion}>
         Next question
       </button>

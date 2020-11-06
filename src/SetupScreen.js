@@ -52,7 +52,7 @@ export const SetupScreen = (props) => {
       <section className="select-container">
       <label>
       <select
-       
+           tabIndex="0"
         onChange={(event) => handleCategory({"TYPE" : "Category", "value": event.target.value})}
       >
         <option value="" >Select a category</option>
@@ -84,6 +84,7 @@ export const SetupScreen = (props) => {
 
     <label>
       <select
+          tabIndex="0"
       // value={difficulty}
        onChange={(event) => handleDifficulty({"TYPE" : "Difficulty", "value" : event.target.value })}
       >
@@ -101,7 +102,7 @@ export const SetupScreen = (props) => {
       </label>
 
       <label>
-        <select
+        <select     tabIndex="0"
           onChange={(event) => handleAmount({"TYPE" : "Amount", "value" : event.target.value })}
           >
           <option value="">Select amount of questions</option>
@@ -114,7 +115,7 @@ export const SetupScreen = (props) => {
       </label>
       
 {inputIsValid}
-      <button type="button" className="start-button" onClick={validateInput}>Start the quiz</button>
+      <button type="button"     tabIndex="0" className="start-button" onClick={validateInput}>Start the quiz</button>
       {!inputIsValid && isValidated && <div>Uh oh, please check that you've made all the selectons.</div>}
     
       </section></section>
