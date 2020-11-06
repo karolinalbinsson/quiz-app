@@ -48,7 +48,7 @@ export const SetupScreen = (props) => {
   return( 
     <section className="setup">
       <h1>QUIZ TIME!</h1> 
-      <h2>Before we begin, let's set up some options</h2> 
+      <h2>Now let's set up some options for the questions.</h2> 
       <section className="select-container">
       <label>
       <select

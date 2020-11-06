@@ -6,7 +6,7 @@ export const App = () => {
 
   const[choices,setChoices] = useState([]);
   const[gameStarted, setGameStarted] = useState(false);
-
+ 
   const handleChanges = (choicesFromSetup) => {
     setChoices(choicesFromSetup)
   }
@@ -17,6 +17,7 @@ export const App = () => {
 
   return (
    <section className="app-container">
+  {/*!playerModeSelected && <Welcome onContinue={handlePlayerMode}/>*/}
   {!gameStarted &&  
     <SetupScreen onSubmit={handleChanges} onGameStart={handleStart}/>
   } 

@@ -5,22 +5,24 @@ import { Question } from 'Question';
 import { Loader } from 'Loader';
 import { ErrorSection } from 'ErrorSection';
 
-export const GameBoard = ({choices}) => {
+export const GameBoard = ({choices, playerList}) => {
 
 const difficulty = choices[choices.findIndex(x => x.TYPE ==="Difficulty")].value;
 const questionType = choices[choices.findIndex(x => x.TYPE ==="QuestionType")].value;
 const category = choices[choices.findIndex(x => x.TYPE ==="Category")].value;
 const amount = choices[choices.findIndex(x => x.TYPE ==="Amount")].value;
 
-const[fetchOk, setFetchOk] = useState(false);
-const[questions, setQuestions] = useState([]);
-const[questionsAnwsered, setQuestionsAnswered] = useState(0);
-const[points, setPoints] = useState(0);
-const[currentWindow, setCurrentWindow] = useState(-1);
+const [fetchOk, setFetchOk] = useState(false);
+const [questions, setQuestions] = useState([]);
+const [questionsAnwsered, setQuestionsAnswered] = useState(0);
+const [points, setPoints] = useState(0);
+const [currentWindow, setCurrentWindow] = useState(-1);
 const [pageLoading, setPageLoading] = useState(true);
-const[fallBack, setFallBack] = useState(false);
+const [fallBack, setFallBack] = useState(false);
+const gamePlayers = playerList;
 
 console.log(difficulty,questionType,category);
+console.log("Playerlist:",gamePlayers);
 
 const fallBackFetch = () => {
   console.log("Using fallback");
