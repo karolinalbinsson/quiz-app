@@ -57,7 +57,7 @@ export const Question = ({questionText,inCorrectAnswers,correctAnswer,nextQuesti
             (answered ? "button-correct" : "answer-button") 
             : ((decodeURIComponent(text) === rightAnswer) && (decodeURIComponent(text) !== userAnswer) && answered) ? "should-have-clicked-this-button" 
             :(answered && (decodeURIComponent(text) === userAnswer) ? "button-wrong" : "answer-button")}
-           
+           disabled={answered}
         >{decodeURIComponent(text)}
         </button>
       ))

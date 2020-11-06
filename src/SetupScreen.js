@@ -7,6 +7,7 @@ export const SetupScreen = (props) => {
   const[difficulty, setDifficulty] = useState('');
   const[category, setCategory] = useState('');
   const[questionType, setQuestionType] = useState('');
+  const[amount, setAmount] = useState('');
   const[inputIsValid, setInputIsValid] = useState(false);
   const[isValidated, setIsValidated] = useState(false);
 
@@ -18,7 +19,7 @@ export const SetupScreen = (props) => {
     }
     else {
       setInputIsValid(true);
-      props.onSubmit([category,questionType,difficulty]);
+      props.onSubmit([category,questionType,difficulty,amount]);
       props.onGameStart();
     }
 
@@ -39,6 +40,10 @@ export const SetupScreen = (props) => {
       setDifficulty(diffValue);
   }
 
+  const handleAmount = (amountValue) => {
+    setAmount('');
+    setAmount(amountValue);
+}
 
   return( 
     <section className="setup">
@@ -94,6 +99,20 @@ export const SetupScreen = (props) => {
        </option> 
       </select>
       </label>
+
+      <label>
+        <select
+          onChange={(event) => handleAmount({"TYPE" : "Amount", "value" : event.target.value })}
+          >
+          <option value="">Select amount of questions</option>
+          <option value="10">10</option>
+          <option value="20">20</option>
+          <option value="30">30</option>
+          <option value="40">40</option>
+          <option value="50">50</option>
+        </select>
+      </label>
+      
 {inputIsValid}
       <button type="button" className="start-button" onClick={validateInput}>Start the quiz</button>
       {!inputIsValid && isValidated && <div>Uh oh, please check that you've made all the selectons.</div>}

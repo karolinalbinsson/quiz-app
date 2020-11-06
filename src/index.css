@@ -59,7 +59,7 @@ code {
 	}
 }
 .app-container {
-	color: white;
+	color: rgb(255 255 255 / 68%);
 	/* border: 1px solid black; */
 	height: 100vh;
 	display: flex;
@@ -153,13 +153,13 @@ h2 {
 .question-card {
 	display: flex;
 	flex-direction: column;
-	margin-top: 100px;
+	margin-top: 30px;
 }
 
 .question-unanswered,
 .question-answered {
 	font-size: 23px;
-	color: white;
+	color: rgb(255 255 255 / 68%);
 	margin-bottom: 48px;
 }
 
@@ -178,7 +178,7 @@ h2 {
 }
 
 .results {
-	margin-top: 40px;
+	margin-top: 15px;
 }
 
 @keyframes spin {
